@@ -1,14 +1,9 @@
-
 const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Configure CORS properly
-app.use(cors({
-  origin: "https://dicerollerui.z1.web.core.windows.net"
-}));
+app.use(cors());
 
-// Existing endpoints
 app.get('/api/roll/:sides', (req, res) => {
   const sides = parseInt(req.params.sides);
   const result = Math.floor(Math.random() * sides) + 1;
