@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>6-Sided Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        #rollButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        #result {
+            font-size: 32px;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>6-Sided Dice Roller</h1>
+    <button id="rollButton" onclick="rollDice(6)">Roll D6</button>
+    <div id="result"></div>
+
+    <script>
+        const API_BASE = 'https://dice-usman.azurewebsites.net'; // ← Verify this matches your API URL!
+
+        async function rollDice(sides) {
+            try {
+                const response = await fetch(`${API_BASE}/api/roll/${sides}`);
+                if (!response.ok) throw new Error('Server error');
+                const data = await response.json();
+                
+                document.getElementById('result').innerHTML = 
+                    `You rolled: <strong>${data.result}</strong>`;
+                    
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 
+                    'Error connecting to server. Please try again.';
+            }
+        }
+
+        // Wake up server when page loads
+        fetch(`${API_BASE}/wakeup`);
+    </script>
+</body>
+</html>
