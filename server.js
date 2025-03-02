@@ -6,7 +6,6 @@ const app = express();
 // Configure CORS properly
 app.use(cors({
   origin: "https://dicerollerui.z1.web.core.windows.net"
-  METHOD: ["GET", "POST", "UPDATE"]
 }));
 
 // Existing endpoints
